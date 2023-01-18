@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/DURAIRAJ17996/tutorial-go-basics/mock"
+	"github.com/DURAIRAJ17996/tutorial-go-basics/functions"
+	"github.com/DURAIRAJ17996/tutorial-go-basics/structs"
 )
 
 func main() {
@@ -31,6 +33,27 @@ func main() {
 	fmt.Println(interfaceObj.Print())
 	fmt.Println(newPerson.Print())
 	*/
-	fmt.Println(mock.IsEven(0))
+	//fmt.Println(mock.IsEven(0))
+	var taskList []structs.Task
+	taskList = make([]structs.Task, 0)
+	var taskName string
+	cmd := os.Args[1]
+	if len(os.Args) > 1 {
+		taskName = os.Args[2]
+	}
+
+	switch cmd {
+	case "add":
+		newTask := structs.Task{taskName, false}
+		var saveFlag = functions.AddTask(newTask)
+		fmt.Println("Save task: ", saveFlag)
+		os.Exit(1)
+	case "list":
+		fmt.Println("Fetching tasks")
+		fmt.Println(functions.ListTasks())
+		os.Exit(1)
+	}
+
+	fmt.Println(taskList)
 
 }
